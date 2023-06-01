@@ -10,7 +10,7 @@ object setAndDistinct {
     val sc: SparkContext = new SparkContext(conf)
     sc.setLogLevel("WARN")
 
-    // set
+    // ------------------------set---------------------------
     val rdd1 = sc.parallelize(List(5, 6, 4, 3))
     val rdd2 = sc.parallelize(List(1, 2, 3, 4))
     println("----------并集不去重-----")
@@ -33,11 +33,7 @@ object setAndDistinct {
     val rdds2 = sc.parallelize(List("java", "python", "scala"))//课程
     rdds1.cartesian(rdds2).foreach(print)
 
-
-
-
-    //  distinct
-
+    //  -----------------------distinct------------------------
     val rddDistinct = sc.parallelize(Array(1,2,3,4,5,5,6,7,8,1,2,3,4),3)
     println()
     println("----------rddDistinct-----")
