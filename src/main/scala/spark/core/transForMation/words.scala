@@ -25,9 +25,9 @@ object words {
     val rdd9: RDD[(String, String)] = sc.wholeTextFiles("data/input/ratings10") //2
     val rdd10: RDD[(String, String)] = sc.wholeTextFiles("data/input/ratings10", 3) //3
 
-    //    println(rdd1.getNumPartitions)//8 //底层partitions.length
+    //    println(rdd1.getNumPartitions)//16 //底层partitions.length
     //    println(rdd2.partitions.length)//3
-    //    println(rdd3.getNumPartitions)//8
+    //    println(rdd3.getNumPartitions)//16
     //    println(rdd4.getNumPartitions)//4
     //    println(rdd5.getNumPartitions)//2
     //    println(rdd6.getNumPartitions)//3
