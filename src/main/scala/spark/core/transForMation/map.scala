@@ -14,5 +14,6 @@ object map {
     rdd1.map(_ * 3).collect.foreach(println)
     println("-------1-------")
     rdd1.map(_*3).foreach(println)
+    sc.stop()
   }
 }

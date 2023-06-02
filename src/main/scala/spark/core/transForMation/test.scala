@@ -22,5 +22,6 @@ object test {
 
     val strings: RDD[String] = sc.parallelize(List("dog", "dog","tiger", "lion", "cat", "panther", "eagle"), 2)
     strings.map((_,1)).reduceByKey(_+_).foreach(print)
+    sc.stop()
   }
 }

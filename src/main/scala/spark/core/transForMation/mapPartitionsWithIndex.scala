@@ -14,5 +14,6 @@ object mapPartitionsWithIndex {
       iter.map(x => "partitionID-data: [" + index + "] " + x)
     }
     value.mapPartitionsWithIndex(function).foreach(println)
+    sc.stop()
   }
 }

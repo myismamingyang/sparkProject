@@ -10,5 +10,6 @@ object mapValues {
     sc.setLogLevel("WARN")
     val values: RDD[(Int, Int)] = sc.parallelize(List((1, 10), (2, 20), (3, 30)))
     values.mapValues(_ * 2).collect().foreach(println)
+    sc.stop()
   }
 }

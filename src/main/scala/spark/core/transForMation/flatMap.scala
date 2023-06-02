@@ -17,5 +17,6 @@ object flatMap {
     rdd1.flatMap(_.split(" ")).map((_,1)).foreach(print)
     println()
     rdd2.flatMap(_.split(" ")).map((_,1)).reduceByKey(_+_).foreach(print)
+    sc.stop()
   }
 }

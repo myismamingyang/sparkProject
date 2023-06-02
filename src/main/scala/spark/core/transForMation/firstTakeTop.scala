@@ -14,5 +14,6 @@ object firstTakeTop {
     rdd.take(3).foreach(print)
     println()
     rdd.top(3).foreach(print)
+    sc.stop()
   }
 }

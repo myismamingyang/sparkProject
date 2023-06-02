@@ -51,5 +51,6 @@ object words {
     //      .reduceByKey(_ + _)
     //
     //    result.foreach(println)
+    sc.stop()
   }
 }

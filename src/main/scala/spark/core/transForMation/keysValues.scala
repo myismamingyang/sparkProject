@@ -36,6 +36,6 @@ object keysValues {
     println()
     println("----------value.map.reduceByKey-----")
     value.values.map((_, 1)).reduceByKey(_ + _).foreach(print)
-
+    sc.stop()
   }
 }

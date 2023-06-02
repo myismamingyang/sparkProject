@@ -11,5 +11,6 @@ object collectAsMap {
     val value: RDD[(String, Int)] = sc.parallelize(List(("a", 1), ("b", 2), ("b", 3)))
     value.collectAsMap().foreach(println)
     // key重复会造成数据丢失
+    sc.stop()
   }
 }

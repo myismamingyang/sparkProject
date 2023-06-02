@@ -12,5 +12,6 @@ object filter {
     rdd1.filter(_ % 2 == 0).foreach(println)
     println("-----1-----")
     rdd1.filter(_>=10).foreach(println)
+    sc.stop()
   }
 }

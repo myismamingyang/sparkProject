@@ -43,6 +43,6 @@ object setAndDistinct {
     println()
     println("----------rddDistinct-distinct-----")
     rddDistinct.distinct.collect.foreach(print)
-
+    sc.stop()
   }
 }
