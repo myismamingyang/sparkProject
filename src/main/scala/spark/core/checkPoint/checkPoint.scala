@@ -36,7 +36,7 @@ object checkPoint {
     sortedResult3.foreach(println)
 
     //清空该缓存
-    //result.unpersist()
+    result.unpersist()
 
     sc.stop()
   }
