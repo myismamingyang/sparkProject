@@ -2,7 +2,12 @@ package spark.core.broadcast
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.broadcast.Broadcast
-
+/**
+ * @Author: Mingyang Ma
+ * @Date: 2023/6/7 14:39
+ * @Version: 1.0
+ * @Function: 测试 if else 更新变量
+ */
 object ifElseTest {
   def main(args: Array[String]): Unit = {
 //    for (j <- 1 to 10) {

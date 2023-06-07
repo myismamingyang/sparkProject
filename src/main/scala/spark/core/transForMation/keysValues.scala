@@ -4,10 +4,16 @@ import org.apache.commons.lang3.StringUtils
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
+/**
+ * @Author: Mingyang Ma
+ * @Date: 2023/6/7 14:39
+ * @Version: 1.0
+ * @Function: 获取 key,value 值
+ */
 object keysValues {
   def main(args: Array[String]): Unit = {
     val conf: SparkConf = new SparkConf().setAppName("spark").setMaster("local[*]")
-    val sc: SparkContext = new SparkContext(conf)
+    val sc = new SparkContext(conf)
     sc.setLogLevel("WARN")
 
     val values: RDD[String] = sc.parallelize(List("dog", "dog", "tiger", "lion", "cat", "panther", "eagle"), 2)

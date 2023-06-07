@@ -7,7 +7,7 @@ import org.apache.spark.{SparkConf, SparkContext}
  * @Author: Mingyang Ma
  * @Date: 2023/6/7 14:39
  * @Version: 1.0
- * @Function:
+ * @Function: 加载外部数据源
  */
 object sequenceAndObject {
   def main(args: Array[String]): Unit = {

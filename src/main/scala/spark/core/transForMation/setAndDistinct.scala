@@ -4,10 +4,17 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.catalyst.expressions.SizeBasedWindowFunction.n
 import org.apache.spark.{SparkConf, SparkContext}
 
+/**
+ * @Author: Mingyang Ma
+ * @Date: 2023/6/7 14:39
+ * @Version: 1.0
+ * @Function: set 交集,并集,笛卡尔积...
+ *            distinct 去重
+ */
 object setAndDistinct {
   def main(args: Array[String]): Unit = {
     val conf: SparkConf = new SparkConf().setAppName("spark").setMaster("local[*]")
-    val sc: SparkContext = new SparkContext(conf)
+    val sc = new SparkContext(conf)
     sc.setLogLevel("WARN")
 
     // ------------------------set---------------------------

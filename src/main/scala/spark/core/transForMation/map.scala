@@ -5,10 +5,16 @@ import org.apache.spark.rdd.RDD
 
 import org.apache.spark.{SparkConf, SparkContext}
 
+/**
+ * @Author: Mingyang Ma
+ * @Date: 2023/6/7 14:39
+ * @Version: 1.0
+ * @Function: 操作元素并返回
+ */
 object map {
   def main(args: Array[String]): Unit = {
     val conf: SparkConf = new SparkConf().setAppName("spark").setMaster("local[*]")
-    val sc: SparkContext = new SparkContext(conf)
+    val sc = new SparkContext(conf)
     sc.setLogLevel("WARN")
     val rdd1: RDD[Int] = sc.parallelize(List(5, 6, 4))
     rdd1.map(_ * 3).collect.foreach(println)

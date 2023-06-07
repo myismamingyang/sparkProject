@@ -4,10 +4,16 @@ import org.apache.commons.lang3.StringUtils
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
+/**
+ * @Author: Mingyang Ma
+ * @Date: 2023/6/7 14:39
+ * @Version: 1.0
+ * @Function: 读取 word 文件
+ */
 object words {
   def main(args: Array[String]): Unit = {
     val conf: SparkConf = new SparkConf().setAppName("spark").setMaster("local[*]")
-    val sc: SparkContext = new SparkContext(conf)
+    val sc = new SparkContext(conf)
     sc.setLogLevel("WARN")
     val rdd1: RDD[Int] = sc.parallelize(1 to 10) //8
     val rdd2: RDD[Int] = sc.parallelize(1 to 10, 3) //3

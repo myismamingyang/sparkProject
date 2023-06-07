@@ -2,7 +2,12 @@ package spark.core.transForMation
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
-
+/**
+ * @Author: Mingyang Ma
+ * @Date: 2023/6/7 14:39
+ * @Version: 1.0
+ * @Function: 过滤函数
+ */
 object filter {
   def main(args: Array[String]): Unit = {
     val conf: SparkConf = new SparkConf().setAppName("spark").setMaster("local[*]")
