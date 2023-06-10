@@ -34,7 +34,7 @@ object sparkReadMysqlTest {
     spark.sql("select COUNT(1) from people").show()
     // jdbcDF.createOrReplaceTempView 注册为临时表后sparkSQL可直接查询临时表
     println("spark SQL")
-    val frame: DataFrame = spark.sql("select create_date_time from people")
+    spark.sql("select create_date_time from people").show()
 
   }
 }
