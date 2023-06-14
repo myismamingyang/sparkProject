@@ -28,10 +28,29 @@ object insertTable {
 
     val word: RDD[String] = sc.textFile("data/input/person.txt")
 
-    val wordValue: RDD[Array[String]] = word.map(_.split(" "))
-    for (e <- wordValue){
-      println(e.mkString)
-    }
+    val words: RDD[Array[String]] = word.map(_.split(" "))
+
+    words.foreachPartition(iter => {
+      val conn: Connection = DriverManager.getConnection("jdbc:mysql://node3:3306/testLibrary?characterEncoding=UTF-8", "root", "MMYqq123")
+      val sql: String = "INSERT INTO `scala_JDBC_test` (`id`, `commit_log`, `commit_time`) VALUES (?, ?, ?);"
+      val ps: PreparedStatement = conn.prepareStatement(sql) //获取预编译语句对象
+      iter.foreach(t => {
+        val id: Int = t(0).toInt
+        val commit_log: String = t(1)
+        val commit_time: String = t(2)
+        ps.setInt(1, id)
+        ps.setString(2, commit_log)
+        ps.setString(3, commit_time)
+        ps.addBatch()
+      })
+      ps.executeBatch()
+
+      ps.close()
+      conn.close()
+    })
+    ssc.start()
+    ssc.awaitTermination()
+    ssc.stop(stopSparkContext = true, stopGracefully = true)
   }
-    //RDD[Array[(s)(s)(s))]]
 }
+//RDD[Array[(s)(s)(s))]]
