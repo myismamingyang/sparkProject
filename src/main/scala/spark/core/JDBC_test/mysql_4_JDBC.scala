@@ -1,4 +1,4 @@
-package spark.core.JDBC
+package spark.core.JDBC_test
 
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
