@@ -24,13 +24,13 @@ object InternetOfThingsLog {
     val producer = new KafkaProducer[String, String](props)
 
     val deviceTypes = Array(
-      "db", "bigdata", "kafka", "route", "bigdata", "db", "bigdata", "bigdata", "bigdata"
+      "mysql", "hivesql", "kafka", "spark", "flink", "hivesql", "spark", "spark", "spark"
     )
 
     val random: Random = new Random()
     while (true) {
       val index: Int = random.nextInt(deviceTypes.length)
-      val deviceId: String = s"device_${(index + 1) * 10 + random.nextInt(index + 1)}"
+      val deviceId: String = s"deviceId_${(index + 1) * 10 + random.nextInt(index + 1)}"
       val deviceType: String = deviceTypes(index)
       val deviceSignal: Int = 10 + random.nextInt(90)
       // 模拟构造设备数据
@@ -49,10 +49,10 @@ object InternetOfThingsLog {
   }
 
   /**
-   * 物联网设备发送状态数据
+   * 物联网设备发送状态数据 schema
    */
   case class DeviceData(
-                         device: String, //设备标识符ID
+                         deviceId: String, //设备标识符ID
                          deviceType: String, //设备类型，如服务器mysql, redis, kafka或路由器route
                          signal: Double, //设备信号
                          time: Long //发送数据时间

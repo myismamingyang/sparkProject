@@ -16,7 +16,9 @@ object InternetOfThingsAnalysis {
   def main(args: Array[String]): Unit = {
     //0.创建环境
     //因为StructuredStreaming基于SparkSQL的且编程API/数据抽象是DataFrame/DataSet,所以这里创建SparkSession即可
-    val spark: SparkSession = SparkSession.builder().appName("sparksql").master("local[*]")
+    val spark: SparkSession = SparkSession.builder()
+      .appName("InternetOfThingsAnalysis")
+      .master("local[*]")
       .config("spark.sql.shuffle.partitions", "4") //本次测试时将分区数设置小一点,实际开发中可以根据集群规模调整大小,默认200
       .getOrCreate()
     val sc: SparkContext = spark.sparkContext
@@ -27,7 +29,7 @@ object InternetOfThingsAnalysis {
     val kafkaDF: DataFrame = spark.readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "node1:9092")
-      .option("subscribe", "iotTopic")
+      .option("subscribe", "InternetOfThingsLog")
       .load()
     val valueDS: Dataset[String] = kafkaDF.selectExpr("CAST(value AS STRING)").as[String]
     //{"device":"device_30","deviceType":"kafka","signal":77.0,"time":1610158709534}
@@ -35,11 +37,12 @@ object InternetOfThingsAnalysis {
     //2.处理数据
     //需求:统计信号强度>30的各种设备类型对应的数量和平均信号强度
     //解析json(也就是增加schema:字段名和类型)
-    //方式1:fastJson/Gson等工具包,后续案例中使用
-    //方式2:使用SparkSQL的内置函数,当前案例使用
+    //方式1:fastJson/Gson等工具包
+    //方式2:使用SparkSQL的内置函数(当前案例使用)
     val schemaDF: DataFrame = valueDS.filter(StringUtils.isNotBlank(_))
+      //语法格式
       .select(
-        get_json_object($"value", "$.device").as("device_id"),
+        get_json_object($"value", "$.deviceId").as("deviceId"),
         get_json_object($"value", "$.deviceType").as("deviceType"),
         get_json_object($"value", "$.signal").cast(DoubleType).as("signal")
       )
@@ -58,22 +61,22 @@ object InternetOfThingsAnalysis {
     val result2: DataFrame = schemaDF.filter('signal > 30)
       .groupBy('deviceType)
       .agg(
-        count('device_id) as "counts",
+        count('deviceId) as "counts",
         avg('signal) as "avgsignal"
       )
     //3.输出结果-控制台
     result1.writeStream
       .format("console")
-      .outputMode("complete")
+      .outputMode("complete") // 聚合函数设置
       //.option("truncate", false)
       .start()
     //.awaitTermination()
     //4.启动并等待结束
     result2.writeStream
       .format("console")
-      .outputMode("complete")
-      //.trigger(Trigger.ProcessingTime(0))
-      //.option("truncate", false)
+      .outputMode("complete") // 聚合函数设置
+      //.trigger(Trigger.ProcessingTime(0)) // 触发
+      //.option("truncate", false) //限制字段过长
       .start()
       .awaitTermination()
     //5.关闭资源

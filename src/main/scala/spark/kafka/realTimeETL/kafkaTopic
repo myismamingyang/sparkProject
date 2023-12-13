@@ -1,14 +1,10 @@
 #查看topic信息
 /export/servers/kafka_2.11/bin/kafka-topics.sh --list --zookeeper node1:2181
 #删除topic
-/export/servers/kafka_2.11/bin/kafka-topics.sh --delete --zookeeper node1:2181 --topic SimulertBasestasjonLog
-/export/servers/kafka_2.11/bin/kafka-topics.sh --delete --zookeeper node1:2181 --topic BasestasjonLogETL2Store
+/export/servers/kafka_2.11/bin/kafka-topics.sh --delete --zookeeper node1:2181 --topic InternetOfThingsLog
 #创建topic
-/export/servers/kafka_2.11/bin/kafka-topics.sh --create --zookeeper node1:2181 --replication-factor 1 --partitions 3 --topic SimulertBasestasjonLog
-/export/servers/kafka_2.11/bin/kafka-topics.sh --create --zookeeper node1:2181 --replication-factor 1 --partitions 3 --topic BasestasjonLogETL2Store
+/export/servers/kafka_2.11/bin/kafka-topics.sh --create --zookeeper node1:2181 --replication-factor 1 --partitions 3 --topic InternetOfThingsLog
 #模拟生产者
-#/export/servers/kafka_2.11/bin/kafka-console-producer.sh --broker-list node1:9092 --topic SimulertBasestasjonLog
-#/export/servers/kafka_2.11/bin/kafka-console-producer.sh --broker-list node1:9092 --topic BasestasjonLogETL2Store
+#/export/servers/kafka_2.11/bin/kafka-console-producer.sh --broker-list node1:9092 --topic InternetOfThingsLog
 #模拟消费者
-/export/servers/kafka_2.11/bin/kafka-console-consumer.sh --bootstrap-server node1:9092 --topic SimulertBasestasjonLog --from-beginning
-/export/servers/kafka_2.11/bin/kafka-console-consumer.sh --bootstrap-server node1:9092 --topic BasestasjonLogETL2Store --from-beginning
+/export/servers/kafka_2.11/bin/kafka-console-consumer.sh --bootstrap-server node1:9092 --topic InternetOfThingsLog --from-beginning
