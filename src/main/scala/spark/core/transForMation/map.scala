@@ -17,7 +17,9 @@ object map {
     val sc = new SparkContext(conf)
     sc.setLogLevel("WARN")
     val rdd1: RDD[Int] = sc.parallelize(List(5, 6, 4))
+    //parallelize 创建RDD --分区(分区数没有设置,使用默认值)
     rdd1.map(_ * 3).collect.foreach(println)
+    // map 将RDD中每个value 进行共同的操作
     println("-------1-------")
     rdd1.map(_*3).foreach(println)
     sc.stop()

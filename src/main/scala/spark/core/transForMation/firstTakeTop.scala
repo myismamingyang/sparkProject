@@ -16,10 +16,10 @@ object firstTakeTop {
     sc.setLogLevel("WARN")
 
     val rdd: RDD[Int] = sc.parallelize(List(3, 6, 1, 2, 4, 5))
-    println(rdd.first())
-    rdd.take(3).foreach(print)
+    println(rdd.first())   // 第一个
+    rdd.take(3).foreach(print)  // 出现的前三个
     println()
-    rdd.top(3).foreach(print)
+    rdd.top(3).foreach(print)  // 降序
     sc.stop()
   }
 }
