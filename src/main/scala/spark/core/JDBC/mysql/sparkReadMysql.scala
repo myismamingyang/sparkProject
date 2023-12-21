@@ -1,9 +1,6 @@
-package spark.core.JDBC_test
+package spark.core.JDBC.mysql
 
-import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
-
-import java.util.Properties
-import java.util.Map
+import org.apache.spark.sql.SparkSession
 
 /**
  * @Author: Mingyang Ma
@@ -11,7 +8,7 @@ import java.util.Map
  * @Version: 1.0
  * @Function: spark 查询 mysql 数据
  */
-object sparkReadMysqlTest {
+object sparkReadMysql {
   def main(args: Array[String]): Unit = {
 
     // Spark2.0始，spark使用SparkSession接口代替SQLcontext和HiveContext

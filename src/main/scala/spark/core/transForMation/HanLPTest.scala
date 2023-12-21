@@ -1,9 +1,9 @@
-package spark.core
-
-import java.util
+package spark.core.transForMation
 
 import com.hankcs.hanlp.HanLP
 import com.hankcs.hanlp.seg.common.Term
+
+import java.util
 
 /**
  * @Author: Mingyang Ma

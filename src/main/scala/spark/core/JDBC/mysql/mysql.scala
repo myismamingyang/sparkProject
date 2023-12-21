@@ -1,16 +1,17 @@
-package spark.core.JDBC_test
-
-import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
+package spark.core.JDBC.mysql
 
 import org.apache.spark.rdd.{JdbcRDD, RDD}
 import org.apache.spark.{SparkConf, SparkContext}
+
+import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
+
 /**
  * @Author: Mingyang Ma
  * @Date: 2023/6/7 15:35
  * @Version: 1.0
- * @Function:  jdbc demo
+ * @Function: jdbc mysql
  */
-object JDBC_mysql {
+object mysql {
   def main(args: Array[String]): Unit = {
     //1.准备环境(Env)sc-->SparkContext
     val sparkConf: SparkConf = new SparkConf().setAppName("wc").setMaster("local[*]")
@@ -27,19 +28,19 @@ object JDBC_mysql {
       //关闭连接-
     })*/
 
-    data.foreachPartition(rows=>{
+    data.foreachPartition(rows => {
       //开启连接-多少个区就开启关闭多少次
-      val conn: Connection = DriverManager.getConnection("jdbc:mysql://node3:3306/bigdata?characterEncoding=UTF-8","root","MMYqq188")
-      val sql:String = "INSERT INTO `t_student` (`id`, `name`, `age`) VALUES (NULL, ?, ?);"
+      val conn: Connection = DriverManager.getConnection("jdbc:mysql://node3:3306/bigdata?characterEncoding=UTF-8", "root", "MMYqq188")
+      val sql: String = "INSERT INTO `t_student` (`id`, `name`, `age`) VALUES (NULL, ?, ?);"
       val ps: PreparedStatement = conn.prepareStatement(sql)
-      rows.foreach(row=>{
+      rows.foreach(row => {
         val name: String = row._1
         val age: Int = row._2
-        ps.setString(1,name)
-        ps.setInt(2,age)
-        ps.addBatch()//将该条数据添加到批处理中
+        ps.setString(1, name)
+        ps.setInt(2, age)
+        ps.addBatch() //将该条数据添加到批处理中
       })
-      ps.executeBatch()//执行批处理sql
+      ps.executeBatch() //执行批处理sql
 
       //关闭连接-
       if (conn != null) conn.close()
@@ -58,13 +59,13 @@ object JDBC_mysql {
       mapRow: (ResultSet) => T = JdbcRDD.resultSetToObjectArray _
       )
      */
-    val getConnection =  () =>DriverManager.getConnection("jdbc:mysql://localhost:3306/bigdata?characterEncoding=UTF-8","root","root")
+    val getConnection = () => DriverManager.getConnection("jdbc:mysql://localhost:3306/bigdata?characterEncoding=UTF-8", "root", "root")
     val querySQL = "select id,name,age from t_student where ? <= id and id <= ?"
-    val mapRow = (rs:ResultSet) =>{
+    val mapRow = (rs: ResultSet) => {
       val id: Int = rs.getInt("id")
       val name: String = rs.getString("name")
       val age: Int = rs.getInt("age")
-      (id,name,age)
+      (id, name, age)
     }
     val studentRDD = new JdbcRDD[(Int, String, Int)](
       sc,
